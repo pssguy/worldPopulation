@@ -18,6 +18,7 @@ shinyUI(fluidPage(
     mainPanel(
       textOutput("check"),
       ggvisOutput("continents"),
+      textOutput(h3("check")),
       ggvisOutput("subGroups"),
       ggvisOutput("countries")
 
