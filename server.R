@@ -1,7 +1,37 @@
 
 shinyServer(function(input, output,session) {
   
+  
   getCountries = function(data,location,session){
+    
+    if(is.null(data)) return(NULL)
+    theSubGroup <- data$subGroup
+    
+    observe({
+      # determine countries for subGroup
+      temp2 <- countries %>% 
+        filter(subGroup==theSubGroup) %>% 
+        select(Country)
+      
+      
+      # collate data and produce graph
+      avPop %>% 
+        left_join(temp,by=c("Location"="Country")) %>% 
+        filter(subGroup==theSubGroup) %>% 
+        group_by(Location) %>% 
+        #summarize(totPop=sum(PopTotal)) %>% 
+        ggvis(~Time,~PopTotal) %>% 
+        layer_lines(stroke =~Location, strokeWidth :=3) %>% 
+        add_axis("x",title="Year",format="####") %>% 
+        add_axis("y",title="") %>% 
+        hide_legend("fill") %>% 
+        bind_shiny("countries")
+      
+    })
+    
+  }
+  
+  getGroups = function(data,location,session){
     print(data)
     if(is.null(data)) return(NULL)
     print(glimpse(data))
@@ -28,6 +58,7 @@ shinyServer(function(input, output,session) {
         layer_lines(stroke =~subGroup, strokeWidth :=5) %>% 
         add_axis("x",title="Year",format="####") %>% 
         add_axis("y",title="") %>% 
+        handle_click(getCountries) %>% 
         hide_legend("fill") %>% 
         bind_shiny("subGroups")
     
@@ -73,7 +104,7 @@ shinyServer(function(input, output,session) {
     layer_lines(stroke =~Location, strokeWidth :=5) %>%
     add_axis("x",title="Year",format="####") %>% 
     add_axis("y",title="") %>% 
-    handle_click(getCountries) %>% 
+    handle_click(getGroups) %>% 
     bind_shiny("continents")
 
 
