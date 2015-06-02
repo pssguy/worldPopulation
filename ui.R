@@ -75,7 +75,14 @@ dashboardPage(
               )
               
       ),
-      tabItem("tables"),
+      tabItem("tables",
+              box(
+                  width = 10, status = "info", solidHeader = TRUE,
+                  title = "Population Summary by country",
+                  DT::dataTableOutput("table")
+                  
+              )
+              ),
       tabItem("countries")
               
     )

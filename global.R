@@ -6,6 +6,7 @@ library(readr)
 library(streamgraph)
 library(rgdal)
 library(leaflet)
+library(DT)
 
 # standard map data for world
 mapData <- readOGR(dsn=".",
@@ -23,3 +24,20 @@ avPop$PopTotal <- round(avPop$PopTotal/1000,2)
 
 
 continents <- c("Africa","Northern America","Europe","Oceania","Latin America and the Caribbean","Asia" )
+
+
+# table container
+sketch = htmltools::withTags(table(
+  class = 'display',
+  thead(
+    tr(
+      th('Country'),
+      th(colspan = 3, '1950'),
+      th(colspan = 3, '2015'),
+      th(colspan = 3, '2099')
+    ),
+    tr(th(""),
+       lapply(rep(c('Pop', '%',"Rank"), 3), th)
+    )
+  )
+))
