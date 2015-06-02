@@ -21,7 +21,7 @@ avPop$PopTotal <- round(avPop$PopTotal/1000,2)
 ## add an id 
 #avPop <- cbind(avPop, id = seq_len(nrow(avPop)))
 
-
+countryChoice <- sort(countries$Description)
 
 continents <- c("Africa","Northern America","Europe","Oceania","Latin America and the Caribbean","Asia" )
 

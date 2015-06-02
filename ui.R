@@ -55,14 +55,17 @@ dashboardPage(
               ),
               fluidRow(
                 box(
-                  width = 6, status = "info", solidHeader = TRUE,
-                  title = "Population density 2015.  Click on country for details    ",
+                  width = 7, status = "info", solidHeader = TRUE,
+#                   title = "Population density 2015.  Click on country for details    ",
+#                   
+#                   leafletOutput("densityMap2015")
+                    title ="The population peaks this century for most bur not some of biggest countries Click points for Details",
+                    ggvisOutput("maxYear")
                   
-                  leafletOutput("densityMap2015")
                   
                 ),
                 box(
-                  width = 6, status = "info", solidHeader = TRUE,
+                  width = 5, status = "info", solidHeader = TRUE,
                   title = "Africa will more than quadruple its share in 150 years ",
                   
                   streamgraphOutput("sg_front")
@@ -74,7 +77,7 @@ dashboardPage(
       tabItem("maps",
              
              box(
-                 width = 8, status = "info", solidHeader = TRUE,
+                 width = 6, status = "info", solidHeader = TRUE,
                  title = "Population density.   Select Year   Click on country for details    Pan/Zoom as desired",
                  sliderInput("year","",min=1950,max=2099,value=2015,sep = ""),
                   leafletOutput("densityMap")
@@ -112,7 +115,11 @@ dashboardPage(
                   
               )
               ),
-      tabItem("countries")
+      tabItem("countries",
+              
+              selectInput("country","",countryChoice,selected="India"),
+              infoBoxOutput("countryPop")
+              )
               
     )
   )
