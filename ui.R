@@ -33,6 +33,7 @@ dashboardPage(
     includeMarkdown("about.md"),
     
     sidebarMenu(
+      menuItem("Summary", tabName = "summary"),
       menuItem("Maps", tabName = "maps"),
       menuItem("Charts", tabName = "charts"),
       menuItem("Tables", tabName = "tables"),
@@ -42,6 +43,10 @@ dashboardPage(
   ),
   dashboardBody(
     tabItems(
+      tabItem("summary",
+              
+              infoBoxOutput("worldPop")
+      ),
       tabItem("maps",
              
              box(
