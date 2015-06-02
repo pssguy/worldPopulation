@@ -11,15 +11,15 @@ shinyServer(function(input, output,session) {
     observe({
       # determine countries for subGroup
       temp3 <- countries %>% 
-        filter(subGroup==theSubGroup) %>% 
-        select(Location=Country)
+        filter(Location==theSubGroup) %>% 
+        select(Country=Description)
      
       print(glimpse(temp3)) 
       print(str(temp3))
       
       # collate data and produce graph
     ctries <-  temp3 %>% 
-        left_join(avPop)# %>% 
+        left_join(avPop,by=c("Country"="Location"))# %>% 
        # filter(subGroup==theSubGroup) 
     
     print(glimpse(ctries))
@@ -29,16 +29,16 @@ shinyServer(function(input, output,session) {
     
     ctrie_values <- function(x) {
       if(is.null(x)) return(NULL)
-      row <- ctries[ctries$id == x$id,c("Time","Location","PopTotal") ]
+      row <- ctries[ctries$id == x$id,c("Time","Country","PopTotal") ]
       paste0( format(row), collapse = "<br />")
     }
     
       
     ctries   %>% 
-        group_by(Location) %>% 
+        group_by(Country) %>% 
         #summarize(totPop=sum(PopTotal)) %>% 
         ggvis(~Time,~PopTotal) %>% 
-      layer_points(size :=20,fill =~Location) %>% 
+      layer_points(size :=20,fill =~Country) %>% 
      # add_tooltip(ctrie_values, "hover") %>%
        # layer_lines(stroke =~Location, strokeWidth :=3) %>% 
         add_axis("x",title="Year",format="####") %>% 
@@ -65,7 +65,10 @@ shinyServer(function(input, output,session) {
       # determine countries for subGroup
       temp2 <- countries %>% 
         filter(Continent==theContinent) %>% 
-        select(Country,subGroup) 
+        select(Country=Description,subGroup=Location) 
+      
+#       print(names(temp2))
+#       print(temp2)
       
       # collate data and produce graph
     groups <-  avPop %>% 
