@@ -46,10 +46,22 @@ dashboardPage(
               
       tabItem("charts",
              
-              box(
-                width = 8, status = "info", solidHeader = TRUE,
+              box(collapsible = TRUE,
+                width = 10, status = "info", solidHeader = TRUE,
                 title = "Continents",
                 ggvisOutput("continents")
+                
+              ),
+              box(collapsible = TRUE,
+                width = 10, status = "info", solidHeader = TRUE,
+                title = "Sub Continents",
+                ggvisOutput("subGroups")
+                
+              ),
+              box(collapsible = TRUE,
+                width = 10, status = "info", solidHeader = TRUE,
+                title = "Countries",
+                ggvisOutput("countries")
                 
               )
               
