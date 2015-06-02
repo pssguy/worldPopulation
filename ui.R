@@ -42,7 +42,16 @@ dashboardPage(
   ),
   dashboardBody(
     tabItems(
-      tabItem("maps"),
+      tabItem("maps",
+             
+             box(
+                 width = 10, status = "info", solidHeader = TRUE,
+                 title = "Population density.   Select Year   Click on country for details    Pan/Zoom as desired",
+                 sliderInput("year","",min=1950,max=2099,value=2015,sep = ""),
+                  leafletOutput("densityMap")
+                 
+             )
+             ),
               
       tabItem("charts",
              
