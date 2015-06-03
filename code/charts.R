@@ -9,7 +9,7 @@ getCountries = function(data,location,session){
     # determine countries for subGroup
     temp3 <- countries %>% 
       filter(Location==theSubGroup) %>% 
-      select(Country=Description)
+      select(Country)
     
     print(glimpse(temp3)) 
     print(str(temp3))
@@ -60,9 +60,11 @@ getGroups = function(data,location,session){
   # session$output$subGroup <- renderPlot({
   observe({
     # determine countries for subGroup
+    print(glimpse(countries))
+    print("done")
     temp2 <- countries %>% 
       filter(Continent==theContinent) %>% 
-      select(Country=Description,subGroup=Location) 
+      select(Country,subGroup=Location) 
     
     #       print(names(temp2))
     #       print(temp2)

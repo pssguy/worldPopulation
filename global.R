@@ -41,3 +41,11 @@ sketch = htmltools::withTags(table(
     )
   )
 ))
+
+### current rankings
+popRank <- avPop %>% 
+  filter(Location %in% countries$Description&Time==2015) %>% 
+  arrange(desc(PopTotal)) %>% 
+  mutate(popRank=row_number()) %>% 
+  arrange(desc(PopDensity)) %>% 
+  mutate(denRank=row_number())

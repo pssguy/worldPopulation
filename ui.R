@@ -1,34 +1,22 @@
-# 
-# shinyUI(fluidPage(
-# 
-#   # Application title
-#   titlePanel("World Population"),
-# 
-#   # Sidebar with a slider input for number of bins
-# #   sidebarLayout(
-# #     sidebarPanel(
-# #       sliderInput("bins",
-# #                   "Number of bins:",
-# #                   min = 1,
-# #                   max = 50,
-# #                   value = 30)
-# #     ),
-# 
-#     # Show a plot of the generated distribution
-#     mainPanel(
-#       textOutput("check"),
-#       ggvisOutput("continents"),
-#       textOutput(h3("check")),
-#       ggvisOutput("subGroups"),
-#       ggvisOutput("countries")
-# 
-#   )
-# ))
-# 
 
 
 dashboardPage(
-  dashboardHeader(title = "World Population"),
+  dashboardHeader(title = "World Population",
+                  dropdownMenu(type = "messages", badgeStatus = "success",
+                               messageItem("Support Team",
+                                           "This is the content of a message.",
+                                           time = "5 mins"
+                               ),
+                               messageItem("Support Team",
+                                           "This is the content of another message.",
+                                           time = "2 hours"
+                               ),
+                               messageItem("New User",
+                                           "Can I get some help?",
+                                           time = "Today"
+                               )
+                  )
+                  ),
   dashboardSidebar(
     
     
@@ -59,7 +47,8 @@ dashboardPage(
 #                   title = "Population density 2015.  Click on country for details    ",
 #                   
 #                   leafletOutput("densityMap2015")
-                    title ="The population peaks this century for most bur not some of biggest countries Click points for Details",
+                    title ="The population peaks this century for most bur not some of biggest countries Click points for details
+of Country, year and population in millions",
                     ggvisOutput("maxYear")
                   
                   
@@ -116,11 +105,27 @@ dashboardPage(
               )
               ),
       tabItem("countries",
+              fluidRow(
+              box(
+                width = 2,
+                title = "Select Country", status = "warning", solidHeader = TRUE,
+                selectInput("country","",countryChoice,selected="India")
+              ),
               
-              selectInput("country","",countryChoice,selected="India"),
-              infoBoxOutput("countryPop")
+              
+              infoBoxOutput("countryPop"),
+              infoBoxOutput("countryPopRank",width = 3),
+              infoBoxOutput("countryPopDen", width = 3)
+              ),
+              box(
+                width = 4, status = "info", solidHeader = TRUE,
+                title = "Population by Year", #height = 300,
+                ggvisOutput("countryChart")
+                
+              )
+             
               )
               
-    )
-  )
-)
+    ) # tabItems
+  ) # body
+) # page
