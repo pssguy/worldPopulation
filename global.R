@@ -26,18 +26,34 @@ countryChoice <- sort(countries$Description)
 continents <- c("Africa","Northern America","Europe","Oceania","Latin America and the Caribbean","Asia" )
 
 
-# table container
-sketch = htmltools::withTags(table(
+# table containers
+pop = htmltools::withTags(table(
   class = 'display',
   thead(
     tr(
       th('Country'),
-      th(colspan = 3, '1950'),
-      th(colspan = 3, '2015'),
-      th(colspan = 3, '2099')
+      th(colspan = 3,style="text-align:center", '1950'),
+      th(colspan = 3, style="text-align:center",'2015'),
+      th(colspan = 3, style="text-align:center",'2099')
     ),
     tr(th(""),
        lapply(rep(c('Pop', '%',"Rank"), 3), th)
+    )
+  )
+))
+
+
+density = htmltools::withTags(table(
+  class = 'display',
+  thead(
+    tr(
+      th('Country'),
+      th(colspan = 2,style="text-align:center", '1950'),
+      th(colspan = 2, style="text-align:center",'2015'),
+      th(colspan = 2, style="text-align:center",'2099')
+    ),
+    tr(th(""),
+       lapply(rep(c('Density', "Rank"), 3), th)
     )
   )
 ))

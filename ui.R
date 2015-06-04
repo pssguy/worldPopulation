@@ -73,8 +73,15 @@ of Country, year and population in millions",
                  width = 6, status = "info", solidHeader = TRUE,
                  title = "Population density.   Select Year   Click on country for details    Pan/Zoom as desired",
                  sliderInput("year","",min=1950,max=2099,value=2015,sep = ""),
+                   textOutput("mapData"),
                   leafletOutput("densityMap")
                  
+             ),
+             box(
+               width = 6, status = "info", solidHeader = TRUE,
+               title = "Population by Year", 
+               ggvisOutput("countryMapChart")
+               
              )
              ),
               
@@ -101,6 +108,14 @@ of Country, year and population in millions",
               
       ),
       tabItem("tables",
+              box(
+                width = 2, status = "info", solidHeader = TRUE,
+                helpText(p("Here is sortable, searchable table of Populations by country"),
+                           p("View data as either population in millions ore as a density
+                             of people per square kilometre")),
+                radioButtons("pop","",c("Population","Density"))
+                
+              ),
               box(
                   width = 10, status = "info", solidHeader = TRUE,
                   title = "Population Summary by country",
