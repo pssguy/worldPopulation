@@ -25,9 +25,13 @@ dashboardPage(
       menuItem("Maps", tabName = "maps"),
       menuItem("Charts", tabName = "charts"),
       menuItem("Tables", tabName = "tables"),
-      menuItem("Countries", tabName = "countries")
+      menuItem("Countries", tabName = "countries"),
+      menuItem("", icon = icon("twitter-square"),
+               href = "https://twitter.com/pssGuy"),
+      menuItem("", icon = icon("envelope"),
+               href = "mailto:agcur@rogers.com")
+      
     )
-    
   ),
   dashboardBody(
     tabItems(
