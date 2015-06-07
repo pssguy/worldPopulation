@@ -1,22 +1,22 @@
 
 
 dashboardPage(
-  dashboardHeader(title = "World Population",
-                  dropdownMenu(type = "messages", badgeStatus = "success",
-                               messageItem("Support Team",
-                                           "This is the content of a message.",
-                                           time = "5 mins"
-                               ),
-                               messageItem("Support Team",
-                                           "This is the content of another message.",
-                                           time = "2 hours"
-                               ),
-                               messageItem("New User",
-                                           "Can I get some help?",
-                                           time = "Today"
-                               )
-                  )
-                  ),
+  dashboardHeader(title = "World Population"),
+#                   dropdownMenu(type = "messages", badgeStatus = "success",
+#                                messageItem("Support Team",
+#                                            "This is the content of a message.",
+#                                            time = "5 mins"
+#                                ),
+#                                messageItem("Support Team",
+#                                            "This is the content of another message.",
+#                                            time = "2 hours"
+#                                ),
+#                                messageItem("New User",
+#                                            "Can I get some help?",
+#                                            time = "Today"
+#                                )
+#                   )
+                  
   dashboardSidebar(
     
     
@@ -26,6 +26,7 @@ dashboardPage(
       menuItem("Charts", tabName = "charts"),
       menuItem("Tables", tabName = "tables"),
       menuItem("Countries", tabName = "countries"),
+      menuItem("Info", tabName = "info"),
       menuItem("", icon = icon("twitter-square"),
                href = "https://twitter.com/pssGuy"),
       menuItem("", icon = icon("envelope"),
@@ -74,7 +75,7 @@ of Country, year and population in millions",
                  title = "Population density.   Select Year   Click on country for details    Pan/Zoom as desired",
                  sliderInput("year","",min=1950,max=2099,value=2015,sep = ""),
                    textOutput("mapData"),
-                  leafletOutput("densityMap")
+                  leafletOutput("densityMap2015")
                  
              ),
              box(
@@ -143,7 +144,8 @@ of Country, year and population in millions",
                 
               )
              
-              )
+              ),
+tabItem("info", includeMarkdown("info.md"))
               
     ) # tabItems
   ) # body

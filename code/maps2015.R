@@ -34,6 +34,9 @@ output$densityMap2015 <- renderLeaflet({
   
   labs <- c("0-9","10-50","50-100","100-300","300-1000","1000-30000","NA")
   
+  print(names(countries2))
+  print(countries2$Country)
+  
   leaflet(data = countries2) %>%
     addTiles() %>%
     setView(lng=0,lat=0,zoom= 1.1) %>% 
@@ -41,6 +44,7 @@ output$densityMap2015 <- renderLeaflet({
                 fillOpacity = 0.6, 
                 color = "#BDBDC3", 
                 weight = 1, 
+                layerId = ~Country,
                 popup = countries2$popUp) %>% 
     # addLegend(pal=pal, values = ~densityRange) %>% 
     #     addLegend(#colors = c(RColorBrewer::brewer.pal(6, "YlGnBu"), "#808080"),  
@@ -50,5 +54,40 @@ output$densityMap2015 <- renderLeaflet({
     #               title = "Density Range", 
     #               labels = labs) %>% 
     mapOptions(zoomToLimits="first")
+  
+})
+
+
+#output$countryMapChart <- renderPlot({
+observe({
+print("enter")
+  print(input$densityMap2015_shape_click$id)
+  if (is.null(input$densityMap2015_shape_click$id)) return()
+  countryId <-input$densityMap2015_shape_click$id
+  
+  print(countryId)
+  
+  ctries <- avPop %>% 
+    filter(Location==countryId)
+  
+  ctries <- cbind(ctries, id = seq_len(nrow(ctries)))
+  
+  ctrie_values <- function(x) {
+    if(is.null(x)) return(NULL)
+    row <- ctries[ctries$id == x$id,c("Time","PopTotal") ]
+    paste0( format(row), collapse = "<br />")
+  }
+  
+  ctries   %>% 
+    
+    ggvis(~Time,~PopTotal, key:=~id) %>% 
+    layer_points(size :=20,fill := "red") %>% 
+    add_tooltip(ctrie_values, "hover") %>%
+    
+    add_axis("x",title="Year",format="####") %>% 
+    add_axis("y",title="") %>% 
+    set_options(height = 400, width = 400) %>% 
+    #  hide_legend("fill") %>% 
+    bind_shiny("countryMapChart")
   
 })
